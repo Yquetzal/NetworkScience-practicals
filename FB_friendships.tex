@@ -1,0 +1,100 @@
+\documentclass[addpoints]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{tikz,lipsum,lmodern}
+\usepackage[most]{tcolorbox}
+\usepackage{url}
+
+
+%This block of commented code translates default words to Spanish
+%-------------------------------------------------------------
+%\pointpoints{punto}{puntos}
+%\bonuspointpoints{punto extra}{puntos extra}
+
+%\totalformat{Pregunta \thequestion: \totalpoints{} puntos}
+
+%\chqword{Pregunta}
+%\chpgword{Página}
+%\chpword{Puntos}
+%\chbpword{Puntos extra}
+%\chsword{Puntos obtenidos}
+%\chtword{Total}
+
+%\boxedpoints
+%-------------------------------------------------------------
+
+\begin{document}
+%This code creates the text before the first question
+%-------------------------------------------------------------------
+\begin{center}
+\fbox{\fbox{\parbox{5.5in}{\centering
+Data to Network: Facebook friendships}}}
+\end{center}
+
+% \vspace{5mm}
+% \begin{tcolorbox}[colback=black!5!white,colframe=white!75!black]
+% You can do the exercises in the order that you prefer. \\  
+% the \textit{Going further} experiments take more time and I do not expect everyone to do them.
+% \end{tcolorbox}
+% \vspace{5mm}
+
+%Here, the questions begin
+
+\begin{tcolorbox}[colback=black!5!white,colframe=white!75!black]
+In a previous exercise with movies, we have seen how, from real data, several similarity scores could be designed, and how those scores could affect the resulting network.
+In this exercise, we will see that, even for a single score, several ways of creating a network can sometimes be meaningful and lead to different networks.
+\end{tcolorbox}
+
+
+\begin{questions}
+
+\question Getting familiar with the data
+\begin{parts}
+\part Go to \url{https://dataforgood.fb.com/docs/social-connectedness-index-methodology/} and read the basic description of the dataset.
+
+You can find on my website a pre-processed version of the dataset in 2 files:
+
+1. The connectedness index as a .csv file
+2. The barycenter of each country as a .csv file (lat,lon) coordinates
+
+\part Load the connectedness index using pandas.
+
+\part Check the number of pairs with non-zero values, the number of different countries, and thus compute (manually) the density of the network.
+\part Load the barycenter using pandas
+\part Plot the distribution of connectedness scores. Check the highest and lowest values.
+\end{parts}
+
+\question Modeling choice
+\begin{parts}
+\part One possibility to create a graph is to filter values lower than a threashold. But what threashold to use? One possibility is to use the distribution of connectedness score to make a choice. Another possibility is to keep only the X largest values, where X is chosen to reach a reasonable average degree. Try this and plot the networks (plotting as a spatial network helps)
+\part We can observe that many of the largest values are between small countries. As a consequence, by picking only the largest values, we capture only part of the story. Another approach is to go back to the definition of the score in term of probability of observing a frienship. We know that we want to reach a number of edges of approximately X. Can you design a random process such as, for each pair of node, there is an edge with a probabilty which depends on X and on the Social Connectedness index, such that the expected total number of edges is X ?
+\part A variant of this approach consists in picking exactly X edges at random among all pairs, with a probability which is biased by the connected index. (\code{np.random.choice})
+\end{parts}
+
+\question Summing up
+\begin{parts}
+\part Make a parallel between those approaches and the two variants of the Erdos Renyi model (n,p), (n,L)
+\part Compare the network properties of the graphs obtained with the 3 different approaches, and a same number of edges.
+\end{parts}
+
+
+\question Sharing
+\begin{parts}
+\part Share your result and observations with other students.
+\end{parts}
+
+
+\end{questions}
+
+
+\end{document}
